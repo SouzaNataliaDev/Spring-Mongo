@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -40,6 +41,11 @@ public class UserServiceImpl implements UserService {
         return responses;
     }
 
+    @Override
+    public Optional<User> findById(String id) {
+        return repository.findById(id);
+    }
+
     private UserResponse createResponse(User user) {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
@@ -50,4 +56,19 @@ public class UserServiceImpl implements UserService {
 
         return response;
     }
+
+    private Optional<User> getById(String id) {
+        return repository.findById(id);
+    }
+    public User save(User user){
+        return repository.save(user);
+}
+
+    @Override
+    public Optional<User> deleteById(String id) {
+        repository.deleteById(id);
+        return Optional.empty();
+    }
+
+
 }
