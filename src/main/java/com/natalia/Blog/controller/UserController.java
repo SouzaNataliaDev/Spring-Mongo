@@ -5,7 +5,6 @@ import com.natalia.Blog.model.UserResponse;
 import com.natalia.Blog.persistence.entity.User;
 import com.natalia.Blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +32,10 @@ public class UserController {
     public ResponseEntity<User> getById(@PathVariable String id) {
         Optional<User> op = service.findById(id);
         if (op.isPresent()) {
-            return new ResponseEntity<>(op.get(), HttpStatus.OK);
+            service.findById(id);
+            return ResponseEntity.ok(op.get());
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.notFound().build();
     }
     @PostMapping
     public ResponseEntity<UserResponse> create(@RequestBody UserRequest request) {
@@ -48,8 +48,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         Optional<User> op = service.findById(id);
-               if (op.isPresent())
-                   service.deleteById(id);
-               return ResponseEntity.noContent().build();
+        if (op.isPresent()) {
+            service.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

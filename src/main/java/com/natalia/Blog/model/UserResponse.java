@@ -1,6 +1,10 @@
 package com.natalia.Blog.model;
 
+import com.natalia.Blog.persistence.entity.Post;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserResponse {
     private String id;
@@ -10,6 +14,7 @@ public class UserResponse {
 
     private String email;
 
+    private List<Post> posts = new ArrayList<>();
     public String getId() {
         return id;
     }
@@ -48,5 +53,13 @@ public class UserResponse {
 
     public void setSecondKey(String secondKey) {
         this.secondKey = secondKey;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

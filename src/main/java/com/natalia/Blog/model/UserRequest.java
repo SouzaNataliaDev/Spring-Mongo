@@ -1,12 +1,19 @@
 package com.natalia.Blog.model;
 
+import com.natalia.Blog.persistence.entity.Comments;
+import com.natalia.Blog.persistence.entity.Post;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRequest {
     private String name;
     private LocalDate birthDate;
 
     private String email;
+
+    private List<Post> posts = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -30,5 +37,13 @@ public class UserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
