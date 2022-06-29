@@ -25,8 +25,7 @@ public class UserServiceImpl implements UserService {
         user.setBirthDate(request.getBirthDate());
         user.setSecondKey(UUID.randomUUID().toString());
 
-        repository.save(user);
-        return createResponse(user);
+        return createResponse(repository.save(user));
     }
 
     @Override
@@ -57,12 +56,9 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
-    private Optional<User> getById(String id) {
-        return repository.findById(id);
-    }
-    public User save(User user){
+    public User save(User user) {
         return repository.save(user);
-}
+    }
 
     @Override
     public Optional<User> deleteById(String id) {
