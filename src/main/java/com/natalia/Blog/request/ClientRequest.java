@@ -22,5 +22,6 @@ public class ClientRequest {
     @NotNull
     @NotBlank
     @Email
+    @JsonProperty("email")
     private String email;
 }

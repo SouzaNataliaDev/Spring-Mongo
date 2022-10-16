@@ -2,9 +2,11 @@ package com.natalia.Blog.service;
 
 import com.natalia.Blog.domain.Client;
 import com.natalia.Blog.exception.ClientException;
+import com.natalia.Blog.exception.NotFoundException;
 import com.natalia.Blog.repository.ClientRepository;
 import com.natalia.Blog.request.ClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,7 +20,7 @@ public class ClientService {
     ClientRepository repository;
 
 
-    public Client createNewClient(ClientRequest clientRequest) {
+    public Client createNewClient(ClientRequest clientRequest) throws ClientException {
 
         var newClient = repository.findByEmail(clientRequest.getEmail());
 
@@ -38,12 +40,17 @@ public class ClientService {
 
     }
 
-    public Optional<Client> findById(String id) {
-        return repository.findById(id);
+    public Client findById(String id){
 
+        var client = repository.findById(id);
+
+        if (client.isEmpty()) {
+            throw new NotFoundException("Cliente nao encontrado");
+        }
+        return client.get();
     }
 
-    public List<Client> getAll(){
+    public List<Client> getAll() {
         return repository.findAll();
     }
 
