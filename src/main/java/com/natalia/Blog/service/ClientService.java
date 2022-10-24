@@ -1,12 +1,11 @@
 package com.natalia.Blog.service;
 
-import com.natalia.Blog.domain.Client;
+import com.natalia.Blog.entity.Client;
 import com.natalia.Blog.exception.ClientException;
 import com.natalia.Blog.exception.NotFoundException;
 import com.natalia.Blog.repository.ClientRepository;
 import com.natalia.Blog.request.ClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,8 +54,12 @@ public class ClientService {
     }
 
 
-    public Optional<Client> deleteById(String id) {
+    public void  deleteById(String id) {
+       var client =  repository.findById(id);
+       if(client.isEmpty()){
+           throw new NotFoundException("Cliente nao encontrado, nao é possivel excluir");
+       }
         repository.deleteById(id);
-        return Optional.empty();
     }
+
 }

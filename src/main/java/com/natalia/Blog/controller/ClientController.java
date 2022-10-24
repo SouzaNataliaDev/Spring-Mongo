@@ -1,6 +1,6 @@
 package com.natalia.Blog.controller;
 
-import com.natalia.Blog.domain.Client;
+import com.natalia.Blog.entity.Client;
 import com.natalia.Blog.exception.ClientException;
 import com.natalia.Blog.request.ClientRequest;
 import com.natalia.Blog.service.ClientService;
@@ -26,14 +26,16 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> findById(@PathVariable String id) {
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-        //ajustar para retornar notfound em vez de erro 500
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping("/new")
     public ResponseEntity<Client> createClient(@Valid @RequestBody ClientRequest clientRequest) throws ClientException {
-        var client = service.createNewClient(clientRequest);
-        return ResponseEntity.ok(client);
-    }
+        return new ResponseEntity<>(service.createNewClient(clientRequest), HttpStatus.CREATED);}
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<Object> deleteById(@PathVariable String id) {
+        service.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

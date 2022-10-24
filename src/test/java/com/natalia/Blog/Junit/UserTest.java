@@ -1,6 +1,6 @@
 package com.natalia.Blog.Junit;
 
-import com.natalia.Blog.domain.Client;
+import com.natalia.Blog.entity.Client;
 import com.natalia.Blog.repository.ClientRepository;
 import com.natalia.Blog.service.ClientService;
 import org.junit.jupiter.api.BeforeEach;

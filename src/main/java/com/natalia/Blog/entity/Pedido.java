@@ -1,4 +1,4 @@
-package com.natalia.Blog.domain;
+package com.natalia.Blog.entity;
 
 import lombok.Builder;
 import lombok.Data;

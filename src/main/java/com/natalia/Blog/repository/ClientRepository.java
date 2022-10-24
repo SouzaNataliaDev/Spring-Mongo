@@ -1,6 +1,6 @@
 package com.natalia.Blog.repository;
 
-import com.natalia.Blog.domain.Client;
+import com.natalia.Blog.entity.Client;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
